@@ -2,7 +2,14 @@ package org.example.model;
 
 public class Student extends Reader {
 
-    public Student(long id, String name, String surname, String email) {
-        super(id, name, surname, email);
+    private String studentNumber;
+
+    public Student(long id, String name, String surname, String email, String studentNumber) {
+        super(id, name, surname, email, 3);
+        this.studentNumber = studentNumber;
+    }
+
+    public String getStudentNumber() {
+        return studentNumber;
     }
 }

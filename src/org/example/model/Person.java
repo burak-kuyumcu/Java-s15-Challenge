@@ -17,7 +17,28 @@ public abstract class Person {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public String getFullName() {
         return name + " " + surname;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "id=" + id +
+                ", fullName='" + getFullName() + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
