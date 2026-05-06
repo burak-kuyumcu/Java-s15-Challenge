@@ -45,6 +45,19 @@ public class Library {
             return;
         }
 
+        int activeLoanCount = 0;
+
+        for (Loan loan : loans) {
+            if (loan.getReader().equals(reader) && loan.isActive()) {
+                activeLoanCount++;
+            }
+        }
+
+        if (activeLoanCount >= reader.getMaxBorrowLimit()) {
+            System.out.println("Borrow limit reached for: " + reader.getFullName());
+            return;
+        }
+
         book.borrow();
         Loan loan = new Loan(book, reader);
         loans.add(loan);
