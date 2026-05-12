@@ -8,10 +8,12 @@ public class Loan {
     private Reader reader;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private Receipt receipt;
 
-    public Loan(Book book, Reader reader) {
+    public Loan(Book book, Reader reader, Receipt receipt) {
         this.book = book;
         this.reader = reader;
+        this.receipt = receipt;
         this.borrowDate = LocalDate.now();
     }
 
@@ -23,12 +25,8 @@ public class Loan {
         return reader;
     }
 
-    public LocalDate getBorrowDate() {
-        return borrowDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
+    public Receipt getReceipt() {
+        return receipt;
     }
 
     public boolean isActive() {
@@ -38,6 +36,7 @@ public class Loan {
     public void closeLoan() {
         this.returnDate = LocalDate.now();
         book.returnItem();
+        receipt.refund();
     }
 
     @Override
@@ -47,6 +46,7 @@ public class Loan {
                 ", reader=" + reader.getFullName() +
                 ", borrowDate=" + borrowDate +
                 ", returnDate=" + returnDate +
+                ", receipt=" + receipt +
                 '}';
     }
 }

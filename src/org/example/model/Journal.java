@@ -4,8 +4,8 @@ public class Journal extends Book {
 
     private int issueNumber;
 
-    public Journal(long id, String title, String isbn, Author author, int issueNumber) {
-        super(id, title, isbn, author);
+    public Journal(long id, String title, String isbn, Author author, String category, int issueNumber) {
+        super(id, title, isbn, author, category);
         this.issueNumber = issueNumber;
     }
 
@@ -19,6 +19,7 @@ public class Journal extends Book {
                 "title='" + getTitle() + '\'' +
                 ", isbn='" + getIsbn() + '\'' +
                 ", author=" + getAuthor().getFullName() +
+                ", category='" + getCategory() + '\'' +
                 ", issueNumber=" + issueNumber +
                 ", status=" + getStatus() +
                 '}';

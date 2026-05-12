@@ -2,15 +2,8 @@ package org.example.model;
 
 public class Magazine extends Book {
 
-    private String category;
-
     public Magazine(long id, String title, String isbn, Author author, String category) {
-        super(id, title, isbn, author);
-        this.category = category;
-    }
-
-    public String getCategory() {
-        return category;
+        super(id, title, isbn, author, category);
     }
 
     @Override
@@ -19,7 +12,7 @@ public class Magazine extends Book {
                 "title='" + getTitle() + '\'' +
                 ", isbn='" + getIsbn() + '\'' +
                 ", author=" + getAuthor().getFullName() +
-                ", category='" + category + '\'' +
+                ", category='" + getCategory() + '\'' +
                 ", status=" + getStatus() +
                 '}';
     }
