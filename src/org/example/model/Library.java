@@ -3,31 +3,38 @@ package org.example.model;
 import org.example.enums.BookStatus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Library {
 
     private long id;
     private String name;
     private List<Book> books;
-    private List<Reader> readers;
+    private Map<Long, Reader> readers;
     private List<Loan> loans;
+    private Set<String> categories;
 
     public Library(long id, String name) {
         this.id = id;
         this.name = name;
         this.books = new ArrayList<>();
-        this.readers = new ArrayList<>();
+        this.readers = new HashMap<>();
         this.loans = new ArrayList<>();
+        this.categories = new HashSet<>();
     }
 
     public void addBook(Book book) {
         books.add(book);
+        categories.add(book.getCategory());
         System.out.println("Book added: " + book.getTitle());
     }
 
     public void addReader(Reader reader) {
-        readers.add(reader);
+        readers.put(reader.getId(), reader);
         System.out.println("Reader added: " + reader.getFullName());
     }
 
@@ -37,7 +44,7 @@ public class Library {
             return;
         }
 
-        if (!readers.contains(reader)) {
+        if (!readers.containsKey(reader.getId())) {
             System.out.println("This reader is not registered.");
             return;
         }
@@ -83,6 +90,16 @@ public class Library {
         System.out.println("Active loan not found for: " + book.getTitle());
     }
 
+    public Book findBookById(long id) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return book;
+            }
+        }
+
+        return null;
+    }
+
     public Book findBookByTitle(String title) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) {
@@ -94,13 +111,25 @@ public class Library {
     }
 
     public Reader findReaderById(long id) {
-        for (Reader reader : readers) {
-            if (reader.getId() == id) {
-                return reader;
-            }
+        return readers.get(id);
+    }
+
+    public void updateBookInfo(long bookId, String title, String isbn, Author author, String category) {
+        Book book = findBookById(bookId);
+
+        if (book == null) {
+            System.out.println("Book not found with id: " + bookId);
+            return;
         }
 
-        return null;
+        book.setTitle(title);
+        book.setIsbn(isbn);
+        book.setAuthor(author);
+        book.setCategory(category);
+
+        refreshCategories();
+
+        System.out.println("Book information updated: " + book);
     }
 
     public void findBooksByAuthor(String authorName) {
@@ -134,6 +163,14 @@ public class Library {
 
         if (!found) {
             System.out.println("No books found in category: " + category);
+        }
+    }
+
+    public void showCategories() {
+        System.out.println("\n--- Categories ---");
+
+        for (String category : categories) {
+            System.out.println(category);
         }
     }
 
@@ -177,6 +214,8 @@ public class Library {
         }
 
         books.remove(bookToRemove);
+        refreshCategories();
+
         System.out.println("Book removed: " + bookToRemove.getTitle());
     }
 
@@ -192,6 +231,14 @@ public class Library {
         System.out.println("Book status updated: " + book.getTitle() + " -> " + status);
     }
 
+    private void refreshCategories() {
+        categories.clear();
+
+        for (Book book : books) {
+            categories.add(book.getCategory());
+        }
+    }
+
     public void showBooks() {
         System.out.println("\n--- Books ---");
 
@@ -203,7 +250,7 @@ public class Library {
     public void showReaders() {
         System.out.println("\n--- Readers ---");
 
-        for (Reader reader : readers) {
+        for (Reader reader : readers.values()) {
             System.out.println(reader);
         }
     }

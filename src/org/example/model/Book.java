@@ -40,32 +40,42 @@ public class Book implements Borrowable {
     }
 
     public String getTitle() {
-
         return title;
     }
 
     public String getIsbn() {
-
         return isbn;
     }
 
     public Author getAuthor() {
-
         return author;
     }
 
     public String getCategory() {
-
         return category;
     }
 
     public BookStatus getStatus() {
-
         return status;
     }
 
-    public void setStatus(BookStatus status) {
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setStatus(BookStatus status) {
         this.status = status;
     }
 

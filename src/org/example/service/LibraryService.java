@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.enums.BookStatus;
+import org.example.model.Author;
 import org.example.model.Book;
 import org.example.model.Library;
 import org.example.model.Reader;
@@ -29,6 +30,10 @@ public class LibraryService {
         library.returnBook(book);
     }
 
+    public Book findBookById(long id) {
+        return library.findBookById(id);
+    }
+
     public Book findBookByTitle(String title) {
         return library.findBookByTitle(title);
     }
@@ -37,12 +42,20 @@ public class LibraryService {
         return library.findReaderById(id);
     }
 
+    public void updateBookInfo(long bookId, String title, String isbn, Author author, String category) {
+        library.updateBookInfo(bookId, title, isbn, author, category);
+    }
+
     public void findBooksByAuthor(String authorName) {
         library.findBooksByAuthor(authorName);
     }
 
     public void showBooksByCategory(String category) {
         library.showBooksByCategory(category);
+    }
+
+    public void showCategories() {
+        library.showCategories();
     }
 
     public void showBorrowedBooksByReaderId(long readerId) {

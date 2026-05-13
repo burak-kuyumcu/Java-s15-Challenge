@@ -12,6 +12,7 @@ public class Main {
 
         Library library = new Library(1, "Central Library");
         LibraryService service = new LibraryService(library);
+
         Author author1 = new Author(1, "George", "Orwell", "orwell@mail.com");
         Author author2 = new Author(2, "Isaac", "Asimov", "asimov@mail.com");
         Book book1 = new Book(1, "1984", "ISBN-001", author1, "Novel");
@@ -50,6 +51,10 @@ public class Main {
             System.out.println("11. Show loan history");
             System.out.println("12. Show borrowed books by reader");
             System.out.println("13. Show books by category");
+            System.out.println("14. Show categories");
+            System.out.println("15. Search book by id");
+            System.out.println("16. Add new book");
+            System.out.println("17. Update book information");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
 
@@ -156,6 +161,95 @@ public class Main {
                 case 13:
                     System.out.print("Enter category: ");
                     service.showBooksByCategory(scanner.nextLine());
+                    break;
+
+                case 14:
+                    service.showCategories();
+                    break;
+
+                case 15:
+                    System.out.print("Enter book id: ");
+                    long searchBookId = scanner.nextLong();
+                    scanner.nextLine();
+
+                    Book foundById = service.findBookById(searchBookId);
+                    System.out.println(foundById != null ? "Found book: " + foundById : "Book not found.");
+                    break;
+
+                case 16:
+                    System.out.print("Enter book id: ");
+                    long newBookId = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Enter book title: ");
+                    String newTitle = scanner.nextLine();
+
+                    System.out.print("Enter isbn: ");
+                    String newIsbn = scanner.nextLine();
+
+                    System.out.print("Enter author id: ");
+                    long newAuthorId = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Enter author name: ");
+                    String newAuthorName = scanner.nextLine();
+
+                    System.out.print("Enter author surname: ");
+                    String newAuthorSurname = scanner.nextLine();
+
+                    System.out.print("Enter author email: ");
+                    String newAuthorEmail = scanner.nextLine();
+
+                    System.out.print("Enter category: ");
+                    String newCategory = scanner.nextLine();
+
+                    Author newAuthor = new Author(newAuthorId, newAuthorName, newAuthorSurname, newAuthorEmail);
+                    Book newBook = new Book(newBookId, newTitle, newIsbn, newAuthor, newCategory);
+
+                    service.addBook(newBook);
+                    break;
+
+                case 17:
+                    System.out.print("Enter book id to update: ");
+                    long updateBookId = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Enter new title: ");
+                    String updatedTitle = scanner.nextLine();
+
+                    System.out.print("Enter new isbn: ");
+                    String updatedIsbn = scanner.nextLine();
+
+                    System.out.print("Enter new author id: ");
+                    long updatedAuthorId = scanner.nextLong();
+                    scanner.nextLine();
+
+                    System.out.print("Enter new author name: ");
+                    String updatedAuthorName = scanner.nextLine();
+
+                    System.out.print("Enter new author surname: ");
+                    String updatedAuthorSurname = scanner.nextLine();
+
+                    System.out.print("Enter new author email: ");
+                    String updatedAuthorEmail = scanner.nextLine();
+
+                    System.out.print("Enter new category: ");
+                    String updatedCategory = scanner.nextLine();
+
+                    Author updatedAuthor = new Author(
+                            updatedAuthorId,
+                            updatedAuthorName,
+                            updatedAuthorSurname,
+                            updatedAuthorEmail
+                    );
+
+                    service.updateBookInfo(
+                            updateBookId,
+                            updatedTitle,
+                            updatedIsbn,
+                            updatedAuthor,
+                            updatedCategory
+                    );
                     break;
 
                 case 0:
